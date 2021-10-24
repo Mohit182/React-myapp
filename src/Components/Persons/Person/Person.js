@@ -1,17 +1,28 @@
-import React from 'react';
-
+import React, {Component} from 'react';
+import Aux from '../../../hoc/Auxilary'
+import withClass from '../../../hoc/withClass';
 import classes from './Person.css';
 
-const person = props => {
-  return (
-    <div className={classes.Person}>
-      <p onClick={props.click}>
-        I'm {props.name} and I am {props.age} years old!
-      </p>
-      <p>{props.children}</p>
-      <input type="text" onChange={props.changed} value={props.name} />
-    </div>
-  );
+class Person extends Component{
+  render(){
+    console.log('[Person.js] rendering....');
+
+    return (
+      <Aux>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p>{this.props.children}</p>
+        <input 
+          type="text" 
+          onChange={this.props.changed} 
+          value={this.props.name} 
+        />
+      </Aux>
+      //if dont want to use div we can return the elements by wraping with [] and spacing with commas
+      //using key value to as the unique identifier
+    );
+  }  
 };
 
-export default person;
+export default withClass(Person,classes.Person);
