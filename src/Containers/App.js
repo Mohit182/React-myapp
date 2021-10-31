@@ -4,6 +4,7 @@ import classes from './App.css';
 import Persons from '../Components/Persons/Persons';
 import withClass from '../hoc/withClass';
 import Aux from '../hoc/Auxilary';
+import AuthContext from '../context/auth-context';
 
 class App extends PureComponent {
   constructor(props) {
@@ -98,7 +99,6 @@ class App extends PureComponent {
         />;
     }
 
-
     return (
       <Aux>
         <button onClick={
@@ -108,14 +108,20 @@ class App extends PureComponent {
         }>
           Remove Cockpit
         </button>
-        {this.state.showCockpit ? <Cockpit
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons}
-          personsLength={this.state.persons.length}
-          clicked={this.togglePersonsHandler}
-          login={this.loginHandler}
-        /> : null}
-        {persons}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+            {this.state.showCockpit ? <Cockpit
+            title={this.props.appTitle} 
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler}
+          /> : null}
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
