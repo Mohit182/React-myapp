@@ -48,7 +48,7 @@ class App extends PureComponent {
   //   }                  done with purecomponent
 
   // }
-
+  
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
